@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New NFT - CryptoArt NFT Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="/cryptoart.png">
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <header class="bg-gray-800 shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-purple-500">CryptoArt</div>
+            <div class="space-x-6">
+                <a href="#" class="hover:text-purple-400">Explore</a>
+                <a href="#" class="hover:text-purple-400">Create</a>
+                <a href="#" class="hover:text-purple-400">Community</a>
+            </div>
+            <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                Connect Wallet
+            </button>
+        </nav>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-8">Create New NFT</h1>
+        <form class="max-w-2xl mx-auto">
+            <div class="mb-6">
+                <label for="file-upload" class="block text-lg font-semibold mb-2">Upload File</label>
+                <div class="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center">
+                    <input id="file-upload" type="file" class="hidden" accept="image/*,video/*,audio/*"/>
+                    <label for="file-upload" class="cursor-pointer">
+                        <i data-lucide="upload" class="mx-auto mb-4"></i>
+                        <p>Drag and drop or click to upload</p>
+                        <p class="text-sm text-gray-400 mt-2">Supported formats: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV. Max 100MB.</p>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label for="nft-name" class="block text-lg font-semibold mb-2">Name</label>
+                <input type="text" id="nft-name" class="w-full bg-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter NFT name" required/>
+            </div>
+
+            <div class="mb-6">
+                <label for="nft-description" class="block text-lg font-semibold mb-2">Description</label>
+                <textarea id="nft-description" rows="4" class="w-full bg-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Describe your NFT" required></textarea>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-lg font-semibold mb-2">Properties</label>
+                <div class="grid grid-cols-2 gap-4" id="properties-container">
+                    <div>
+                        <input type="text" class="w-full bg-gray-800 rounded-lg px-4 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Property name"/>
+                        <input type="text" class="w-full bg-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Property value"/>
+                    </div>
+                </div>
+                <button type="button" id="add-property" class="mt-2 text-purple-500 hover:text-purple-400">+ Add Property</button>
+            </div>
+
+            <div class="mb-6">
+                <label for="nft-price" class="block text-lg font-semibold mb-2">Price (ETH)</label>
+                <input type="number" id="nft-price" step="0.01" min="0" class="w-full bg-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter price in ETH" required/>
+            </div>
+
+            <div class="mb-6">
+                <label for="nft-royalty" class="block text-lg font-semibold mb-2">Royalty (%)</label>
+                <input type="number" id="nft-royalty" step="0.1" min="0" max="50" class="w-full bg-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Enter royalty percentage" required/>
+            </div>
+
+            <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                Create NFT
+            </button>
+        </form>
+    </main>
+
+    <footer class="bg-gray-800 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i data-lucide="twitter" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i data-lucide="youtube" class="w-6 h-6"></i>
+                </a>
+            </div>
+            <p class="text-gray-400">&copy; 2024 CryptoArt NFT Exchange. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        document.getElementById('add-property').addEventListener('click', function() {
+            const container = document.getElementById('properties-container');
+            const newProperty = document.createElement('div');
+            newProperty.innerHTML = `
+                <input type="text" class="w-full bg-gray-800 rounded-lg px-4 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Property name"/>
+                <input type="text" class="w-full bg-gray-800 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-600" placeholder="Property value"/>
+            `;
+            container.appendChild(newProperty);
+        });
+    </script>
+</body>
+</html>
