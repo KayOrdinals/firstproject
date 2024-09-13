@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - CryptoArt NFT Exchange</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    <header class="bg-gray-800 shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-purple-500">CryptoArt</div>
+            <div class="space-x-6">
+                <a href="#" class="hover:text-purple-400">Explore</a>
+                <a href="#" class="hover:text-purple-400">Create</a>
+                <a href="#" class="text-purple-400">Community</a>
+            </div>
+            <a href="./mmpopup.html" id="connectWalletBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                Connect Wallet
+            </a>
+        </nav>
+    </header>
+
+    <!-- ... (rest of the HTML remains the same) ... -->
+
+    <footer class="bg-gray-800 py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i data-lucide="twitter" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white">
+                    <i data-lucide="youtube" class="w-6 h-6"></i>
+                </a>
+            </div>
+            <p class="text-gray-400">&copy; 2024 CryptoArt NFT Exchange. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        let web3;
+        let userAccount;
+
+        async function connectWallet() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    // Request account access
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    web3 = new Web3(window.ethereum);
+                    
+                    // Get the user's account
+                    const accounts = await web3.eth.getAccounts();
+                    userAccount = accounts[0];
+                    
+                    // Update button text
+                    connectWalletBtn.textContent = `${userAccount.substr(0, 6)}...${userAccount.substr(-4)}`;
+                    
+                    console.log('Wallet connected:', userAccount);
+                } catch (error) {
+                    console.error('Failed to connect wallet:', error);
+                }
+            } else {
+                console.log('MetaMask not detected');
+                alert('Please install MetaMask to connect your wallet!');
+            }
+        }
+
+        connectWalletBtn.addEventListener('click', connectWallet);
+
+        // Check if wallet is already connected
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.request({ method: 'eth_accounts' })
+                .then(accounts => {
+                    if (accounts.length > 0) {
+                        userAccount = accounts[0];
+                        connectWalletBtn.textContent = `${userAccount.substr(0, 6)}...${userAccount.substr(-4)}`;
+                        console.log('Wallet already connected:', userAccount);
+                    }
+                })
+                .catch(console.error);
+        }
+    </script>
+</body>
+</html>
